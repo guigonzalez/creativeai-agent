@@ -2,21 +2,25 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { SkipLink } from "@/components/skip-link"
 import { ArrowRight, Zap, Target, TrendingUp, Shield, Sparkles, BarChart3 } from "lucide-react"
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
+      {/* Skip Navigation */}
+      <SkipLink href="#main-content">Pular para o conteúdo principal</SkipLink>
+
       {/* Header */}
-      <header className="border-b">
+      <header className="border-b" role="banner">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
+            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
+              <Sparkles className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
             </div>
             <span className="font-semibold text-lg">CreativeAI Agent</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6" aria-label="Navegação principal">
             <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Features
             </Link>
@@ -35,10 +39,11 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
+      <main id="main-content">
       <section className="container mx-auto px-4 py-20 md:py-32">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <Badge variant="secondary" className="mb-4">
-            <Sparkles className="h-3 w-3 mr-1" />
+            <Sparkles className="h-3 w-3 mr-1" aria-hidden="true" />
             Powered by Multi-AI Orchestration
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
@@ -219,9 +224,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
-      <footer className="border-t py-8">
+      <footer className="border-t py-8" role="contentinfo">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
           <p>© 2025 CreativeAI Agent. Todos os direitos reservados.</p>
         </div>
