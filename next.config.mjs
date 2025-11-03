@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  basePath: '/creativeai-agent',
   typescript: {
     ignoreBuildErrors: true,
   },
