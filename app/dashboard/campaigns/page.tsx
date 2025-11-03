@@ -71,25 +71,25 @@ export default function CampaignsPage() {
       case "completed":
         return (
           <Badge variant="default">
-            <CheckCircle2 className="h-3 w-3 mr-1" /> Concluído
+            <CheckCircle2 className="h-3 w-3 mr-1" aria-hidden="true" /> Concluído
           </Badge>
         )
       case "qa":
         return (
           <Badge variant="secondary">
-            <AlertCircle className="h-3 w-3 mr-1" /> QA
+            <AlertCircle className="h-3 w-3 mr-1" aria-hidden="true" /> QA
           </Badge>
         )
       case "processing":
         return (
           <Badge variant="outline">
-            <Zap className="h-3 w-3 mr-1" /> Processando
+            <Zap className="h-3 w-3 mr-1" aria-hidden="true" /> Processando
           </Badge>
         )
       case "draft":
         return (
           <Badge variant="outline">
-            <Clock className="h-3 w-3 mr-1" /> Rascunho
+            <Clock className="h-3 w-3 mr-1" aria-hidden="true" /> Rascunho
           </Badge>
         )
       default:
@@ -107,7 +107,7 @@ export default function CampaignsPage() {
         </div>
         <Button asChild>
           <Link href="/dashboard/campaigns/new">
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
             Nova Campanha
           </Link>
         </Button>
@@ -118,11 +118,19 @@ export default function CampaignsPage() {
         <CardContent className="pt-6">
           <div className="flex gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input placeholder="Buscar campanhas..." className="pl-9" />
+              <label htmlFor="search-campaigns" className="sr-only">
+                Buscar campanhas
+              </label>
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+              <Input
+                id="search-campaigns"
+                placeholder="Buscar campanhas..."
+                className="pl-9"
+                aria-label="Buscar campanhas por nome ou marca"
+              />
             </div>
-            <Button variant="outline" className="gap-2 bg-transparent">
-              <Filter className="h-4 w-4" />
+            <Button variant="outline" className="gap-2 bg-transparent" aria-label="Abrir filtros de campanhas">
+              <Filter className="h-4 w-4" aria-hidden="true" />
               Filtros
             </Button>
           </div>
@@ -148,11 +156,11 @@ export default function CampaignsPage() {
                     <CardDescription className="flex items-center gap-4 text-sm">
                       <span>{campaign.brand}</span>
                       <span className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
+                        <Calendar className="h-3 w-3" aria-hidden="true" />
                         {campaign.created}
                       </span>
                       <span className="flex items-center gap-1">
-                        <User className="h-3 w-3" />
+                        <User className="h-3 w-3" aria-hidden="true" />
                         {campaign.owner}
                       </span>
                     </CardDescription>
@@ -161,8 +169,8 @@ export default function CampaignsPage() {
                     {getStatusBadge(campaign.status)}
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreVertical className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" aria-label={`Ações para ${campaign.name}`}>
+                          <MoreVertical className="h-4 w-4" aria-hidden="true" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -184,7 +192,14 @@ export default function CampaignsPage() {
                     </span>
                   </div>
                   {campaign.status !== "draft" && (
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                    <div
+                      role="progressbar"
+                      aria-label={`Progresso da geração de variações: ${campaign.progress}% completo`}
+                      aria-valuenow={campaign.progress}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      className="h-2 bg-muted rounded-full overflow-hidden"
+                    >
                       <div className="h-full bg-primary transition-all" style={{ width: `${campaign.progress}%` }} />
                     </div>
                   )}
